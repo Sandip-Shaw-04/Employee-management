@@ -1,6 +1,13 @@
 <x-filament-panels::page>
     <div>
-        {{ $this->form }}
+        <form wire:submit.prevent="submit">
+            {{ $this->form }}
+            <br>
+            <x-filament::button type="submit">
+                Submit
+            </x-filament::button>
+        </form>
+       
     </div>
     <div>
         {{ $this->table }}

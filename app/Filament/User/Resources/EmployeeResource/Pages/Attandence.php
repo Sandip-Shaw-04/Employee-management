@@ -13,8 +13,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Attandence extends Page implements HasTable
 {
@@ -30,6 +29,11 @@ class Attandence extends Page implements HasTable
     public function mount(int | string $record)
     {
         $this->record = $this->resolveRecord($record);
+    }
+
+    public static function canAccess(array $parameters = []): bool
+    {
+        return Gate::allows('canPerform', $parameters["record"]);
     }
 
     public function table(Table $table): Table
