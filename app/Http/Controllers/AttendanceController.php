@@ -15,6 +15,7 @@ class AttendanceController extends Controller
         $attendance->start_date = $request->input('startTime');
         $attendance->end_date = $request->input('endTime');
         $attendance->duration = $request->input('duration');
+        $attendance->login_ip = $request->ip(); 
         $attendance->save();
 
         return response()->json(['message' => 'Attendance recorded successfully!']);

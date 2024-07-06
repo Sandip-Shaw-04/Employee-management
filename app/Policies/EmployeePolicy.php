@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\LeaveStatus;
 use App\Models\Admin;
 use App\Models\Employee;
 use App\Models\User;
@@ -33,5 +34,17 @@ class EmployeePolicy
         }
 
         return Auth::user()->id === $employee->user_id;
+    }
+
+    public function canDeleteLeave(User | Admin $user,Employee $employee)
+    {
+        if(! $this->canPerform($user,$employee)){
+            return false;
+        }
+
+        return $employee->employeeLeaves->contains(function ($leave) {
+            //dump($leave->status === LeaveStatus::APPROVED);
+            return $leave->status === LeaveStatus::APPROVED;
+        });
     }
 }

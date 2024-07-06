@@ -12,8 +12,10 @@ use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Builder;
 
 class Attandence extends Page implements HasTable
 {
@@ -31,6 +33,12 @@ class Attandence extends Page implements HasTable
         $this->record = $this->resolveRecord($record);
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Daily Attendance';
+    }
+
+
     public static function canAccess(array $parameters = []): bool
     {
         return Gate::allows('canPerform', $parameters["record"]);
@@ -45,5 +53,6 @@ class Attandence extends Page implements HasTable
                 TextColumn::make('end_date')->label('End Date'),
                 TextColumn::make('duration')->label('Duration'),
             ]);
+            
     }
 }

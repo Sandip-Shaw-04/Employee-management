@@ -44,9 +44,9 @@ class ViewEmployee extends ViewRecord
 
                         ])->columns(3),
 
-                Section::make('Employee Details')
+                Section::make('Salary Structure')
                         ->schema([
-                            TextEntry::make('employeeSalary.basic_salary')->label('Address 1'),
+                            TextEntry::make('employeeSalary.basic_salary')->label('Basic Salary'),
                             TextEntry::make('employeeSalary.ta')->label('T.A')->default('N/A'),
                             TextEntry::make('employeeSalary.da')->label('D.A')->default('N/A'),
                             TextEntry::make('employeeSalary.med')->label('Mediclaim')->default('N/A'),
@@ -55,8 +55,7 @@ class ViewEmployee extends ViewRecord
                             TextEntry::make('employeeSalary.gross_salary')->label('Gross Salary'),
                             TextEntry::make('employeeSalary.net_salary')->label('Net Salary'),
 
-
-                        ])->columns(3),
+                        ])->columns(4),
                 ]);
     }
 }

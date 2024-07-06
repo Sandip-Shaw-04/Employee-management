@@ -17,7 +17,10 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class LeavesEmployee extends Page implements HasTable
@@ -105,7 +108,16 @@ class LeavesEmployee extends Page implements HasTable
             ])
             ->actions([
                 DeleteAction::make($this->record)
-            ]);
+                    ->icon('heroicon-s-trash')
+                    ->iconButton()
+                    ->disabled(! Auth::user()->can('canDeleteLeave', $this->record))
+
+            ])->filters([
+                Filter::make('status')
+                    ->label('Approved Status')
+                    ->toggle()
+                    ->query(fn (Builder $query): Builder => $query->where('status', LeaveStatus::APPROVED)),
+            ]);;
     }
 
 
